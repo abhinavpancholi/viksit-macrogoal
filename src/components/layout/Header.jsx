@@ -1,20 +1,12 @@
 import React from 'react'
-import { Calendar, Download, Home, ArrowLeft, LogOut } from 'lucide-react'
+import { Home } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
-
 
 export default function Header() {
   const location = useLocation()
   const isGoalPage = location.pathname.includes('/goal/') || location.pathname.includes('/v2/goal/')
   const isFruitYieldPage = location.pathname === '/fruit-yield'
   const isOverviewPage = location.pathname === '/'
-  const { currentUser, logout } = useAuth()
-
-  // e.g. "admin" → "Admin"
-  const roleLabel = currentUser
-    ? currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1)
-    : ''
 
   return (
     <header className="bg-surface-1 border-b border-surface-border sticky top-0 z-50 shadow-xs">
@@ -89,31 +81,6 @@ export default function Header() {
             >
               <span>Analysis Dashboard</span>
             </Link>
-          )}
-
-          {/* ── Auth: user badge + logout ──────────────────────────────── */}
-          {currentUser && (
-            <div className="flex items-center gap-2 pl-3 border-l border-surface-border">
-              {/* Name + role badge */}
-              <div className="flex flex-col items-end leading-tight">
-                <span className="text-xs font-semibold text-ink-body">
-                  {currentUser.name}
-                </span>
-                <span className="text-[10px] font-medium text-ink-faint bg-surface-2 rounded px-1.5 py-0.5 mt-0.5">
-                  {roleLabel}
-                </span>
-              </div>
-
-              {/* Logout button */}
-              <button
-                id="header-logout-btn"
-                onClick={logout}
-                title="Sign out"
-                className="flex items-center justify-center w-8 h-8 rounded-lg border border-surface-border bg-surface-0 hover:bg-status-critical-soft hover:border-status-critical hover:text-status-critical text-ink-muted transition"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
-            </div>
           )}
         </div>
       </div>
